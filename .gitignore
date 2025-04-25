@@ -1,0 +1,10 @@
+# build artifacts
+*.o
+*.mod
+*.smod
+
+# and any file without extension should be considered binary
+# checkout https://github.com/toptal/gitignore/blob/master/templates/Fortran.gitignore 
+# for more ideas
+
+
