@@ -3,8 +3,9 @@
 *.mod
 *.smod
 
+# subprojects build folders
+subprojects/*
+
 # and any file without extension should be considered binary
 # checkout https://github.com/toptal/gitignore/blob/master/templates/Fortran.gitignore 
 # for more ideas
-
-
