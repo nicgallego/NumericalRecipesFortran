@@ -2,4 +2,4 @@ project('NumericalRecipesFortran', 'fortran', meson_version: '>=0.50', version: 
 
 subdir('src')
 subdir('tests')
-#subdir('doc')
+subdir('doc')
