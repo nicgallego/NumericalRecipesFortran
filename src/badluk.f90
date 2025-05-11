@@ -2,14 +2,23 @@
 !> @brief a funny program that computes all the occurences of friday 13th that coincide with full moon
 !>
 program badluk
-   use ch1, only: julday, flmoon
+   use ch1, only: julday, flmoon, dates_list, date_node, date
    implicit none
    integer :: ic, icon, idwk, ifrac, im, iyyy, jd, jday, n
    real :: frac
    real, parameter :: TIMZON = (-5./24.)
    integer :: iybeg = 1900, iyend = 2050
+   ! here extra variables for the future function ----
+   type(dates_list) :: dates
+   type(date_node), pointer :: new_date, temp
+   type(date), target :: a_date
+   ! ------------------------------------------------
 
    write (*,'(1x,a,i5,a,i5)') 'Full moons on Friday 13th from', iybeg, ' to', iyend
+
+   ! dates = badluck(iybeg,iyend,timezone) -------------------------------------------------------------------------------------
+   nullify(dates%head) ! start with an empty list
+   nullify(dates%tail)
 
    ! loop over each year and each month and check if the 13th is friday
    do iyyy = iybeg, iyend
@@ -36,8 +45,18 @@ program badluk
                ifrac = ifrac + 12
             endif
             if (jd.eq.jday) then ! did we hit our target day?
-               write (*,'(/1x,i2,a,i2,a,i4)') im,'/',13,'/',iyyy
-               write (*,'(1x,a,i2,a)') 'Full moon ', ifrac, ' hrs after midnight (EST).'
+               allocate (new_date)
+               a_date = date(month=im, day=13, year=iyyy, hour=ifrac)
+               new_date%m_date => a_date
+               nullify(new_date%next)
+               ! push back into the list
+               if (.not. associated(dates%head)) then ! first element
+                  dates%head => new_date
+                  dates%tail => new_date
+               else ! put it to the tail and updating the the link first
+                  dates%tail%next => new_date
+                  dates%tail => new_date
+               endif
                goto 2
             else
                ic = isign(1,jday-jd)
@@ -47,9 +66,23 @@ program badluk
             endif
             goto 1
 2           continue
-         endif
+         end if
       enddo
    enddo
+   ! moving out of this section system calls to define a function ---------------------------------------
+   new_date => dates%head
+   do
+      if (.not.associated(new_date)) exit
+      im = new_date%m_date%month
+      iyyy = new_date%m_date%year
+      ifrac = new_date%m_date%hour
+      write (*,'(/1x,i2,a,i2,a,i4)') im,'/',13,'/',iyyy
+      write (*,'(1x,a,i2,a)') 'Full moon ', ifrac, ' hrs after midnight (EST).'
+      ! save temp to clean up
+      temp => new_date
+      new_date => new_date%next
+      deallocate(temp)
+   end do
 end program badluk
 ! those goto are really dangerous!, I just spend almost 30 minites to figure out that 1 should had been placed in the call of flmoon
 ! and not in the call of julday, that led to an infinite loop
