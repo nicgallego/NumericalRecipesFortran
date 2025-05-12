@@ -21,7 +21,8 @@ program tester
    testsuites = [ &
       new_testsuite("julday", collect_julday), &
       new_testsuite("date_utils", collect_date_utils), &
-      new_testsuite("badluck", collect_badluck) &
+      new_testsuite("badluck", collect_badluck), &
+      new_testsuite("caldat", collect_caldat) &
       ] ! don't forget the comma except for the last
 
    do is = 1, size(testsuites)
