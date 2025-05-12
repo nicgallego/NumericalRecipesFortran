@@ -11,8 +11,7 @@ program badluk
    integer :: iybeg = 1900, iyend = 2050
    ! here extra variables for the future function ----
    type(dates_list) :: dates
-   type(date_node), pointer :: new_date, temp
-   type(date), target :: a_date
+   type(date_node), pointer :: new_date, current
    ! ------------------------------------------------
 
    write (*,'(1x,a,i5,a,i5)') 'Full moons on Friday 13th from', iybeg, ' to', iyend
@@ -44,21 +43,10 @@ program badluk
                ifrac = ifrac + 12
             endif
             if (jd.eq.jday) then ! did we hit our target day?
-
-               write (*,'(/1x,i2,a,i2,a,i4)') im,'/',13,'/',iyyy
-               write (*,'(1x,a,i2,a)') 'Full moon ', ifrac, ' hrs after midnight (EST).'
-!               allocate (new_date)
-!               a_date = date(month=im, day=13, year=iyyy, hour=ifrac)
-!               new_date%m_date => a_date
-!               nullify(new_date%next)
-               ! push back into the list
-!               if (.not. associated(dates%head)) then ! first element
-!                  dates%head => new_date
-!                  dates%tail => new_date
-!               else ! put it to the tail and updating the the link first
-!                  dates%tail%next => new_date
-!                  dates%tail => new_date
-!               endif
+               allocate (new_date)
+               new_date%m_date = date(month=im, day=13, year=iyyy, hour=ifrac)
+               new_date%next => null()
+               call dates%push_back(new_date)
                goto 2
             else
                ic = isign(1,jday-jd)
@@ -72,19 +60,18 @@ program badluk
       enddo
    enddo
    ! moving out of this section system calls to define a function ---------------------------------------
-!   new_date => dates%head
-!   do
-!      if (.not.associated(new_date)) exit
-!      im = new_date%m_date%month
-!      iyyy = new_date%m_date%year
-!      ifrac = new_date%m_date%hour
-!      write (*,'(/1x,i2,a,i2,a,i4)') im,'/',13,'/',iyyy
-!      write (*,'(1x,a,i2,a)') 'Full moon ', ifrac, ' hrs after midnight (EST).'
-!      ! save temp to clean up
-!      temp => new_date
-!      new_date => new_date%next
-!      deallocate(temp)
-!   end do
+   current => dates%head
+   do while(associated(current))
+      im = current%m_date%month
+      iyyy = current%m_date%year
+      ifrac = current%m_date%hour
+      write (*,'(/1x,i2,a,i2,a,i4)') im,'/',13,'/',iyyy
+      write (*,'(1x,a,i2,a)') 'Full moon ', ifrac, ' hrs after midnight (EST).'
+
+      current => current%next
+   end do
+
+   call dates%destroy()
 end program badluk
 ! those goto are really dangerous!, I just spend almost 30 minites to figure out that 1 should had been placed in the call of flmoon
 ! and not in the call of julday, that led to an infinite loop

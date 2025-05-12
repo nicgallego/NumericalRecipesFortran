@@ -43,6 +43,7 @@ contains
 
       jd = julday(10, 14, 1582)
       call check(error, jd.gt.0)
+
    end subroutine
 
    !> @brief the day zero was January 1 4713 BC

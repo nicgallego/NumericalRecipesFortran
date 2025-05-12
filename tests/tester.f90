@@ -26,9 +26,12 @@ program tester
       call run_testsuite(testsuites(is)%collect, error_unit, stat)
    end do
 
+   deallocate(testsuites)
+
    if (stat > 0)  then
       write(error_unit, '(i0, 1x, a)') stat, "test(s) failed!"
       error stop
    end if
+
 
 end program tester
