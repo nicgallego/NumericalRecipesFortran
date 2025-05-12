@@ -12,7 +12,7 @@ contains
       type(unittest_type), allocatable, intent(out) :: testsuite(:)
 
       testsuite = [ &
-         new_unittest("may23_1968_inv", may231968inv, should_fail=.true.) &
+         new_unittest("may23_1968_inv", may231968inv) &
          ]
    end subroutine collect_caldat
 
@@ -24,9 +24,9 @@ contains
 
       call caldat(julday, month, day, year)
 
-      call check(error, month, 6, more="Wrong month")
-      call check(error, day, 23)
-      call check(error, year, 1968)
+      call check(error, month, 5, more="Wrong month")
+      call check(error, day, 23, more="Wrong day")
+      call check(error, year, 1968, more="Wrong year")
 
    end subroutine may231968inv
 
