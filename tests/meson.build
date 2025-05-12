@@ -1,8 +1,9 @@
-testdrive_dep = dependency('test-drive', fallback: ['test-drive', 'testdrive_dep'])
+testdrive_dep = dependency('test-drive', fallback: ['test-drive', 'testdrive_dep']) 
 
 tests = [
   'julday',
-  'date_utils'
+  'date_utils',
+  'badluck',
   ]
 # if the .mod cannot be found, forgot to add the test into the test list above :)
 

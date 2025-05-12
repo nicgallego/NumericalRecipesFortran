@@ -7,6 +7,7 @@ program tester
    use testdrive, only : run_testsuite, new_testsuite, testsuite_type
    use test_julday, only : collect_julday
    use test_date_utils, only: collect_date_utils
+   use test_badluck, only: collect_badluck
    !> add here tests as we go and append to the end of testsuites below
    implicit none
 
@@ -18,7 +19,8 @@ program tester
 
    testsuites = [ &
       new_testsuite("julday", collect_julday), &
-      new_testsuite("date_utils", collect_date_utils) &
+      new_testsuite("date_utils", collect_date_utils), &
+      new_testsuite("badluck", collect_badluck) &
       ] ! don't forget the comma except for the last
 
    do is = 1, size(testsuites)
@@ -30,7 +32,7 @@ program tester
 
    if (stat > 0)  then
       write(error_unit, '(i0, 1x, a)') stat, "test(s) failed!"
-      error stop
+      error stop 1
    end if
 
 
