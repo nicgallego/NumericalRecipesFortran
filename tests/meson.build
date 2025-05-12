@@ -4,6 +4,7 @@ tests = [
   'julday',
   'date_utils',
   'badluck',
+  'caldat',
   ]
 # if the .mod cannot be found, forgot to add the test into the test list above :)
 
