@@ -6,6 +6,7 @@ program tester
    use, intrinsic :: iso_fortran_env, only: error_unit
    use testdrive, only : run_testsuite, new_testsuite, testsuite_type
    use test_julday, only : collect_julday
+   use test_date_utils, only: collect_date_utils
    !> add here tests as we go and append to the end of testsuites below
    implicit none
 
@@ -16,7 +17,8 @@ program tester
    stat = 0
 
    testsuites = [ &
-      new_testsuite("julday", collect_julday) &
+      new_testsuite("julday", collect_julday), &
+      new_testsuite("date_utils", collect_date_utils) &
       ] ! don't forget the comma except for the last
 
    do is = 1, size(testsuites)

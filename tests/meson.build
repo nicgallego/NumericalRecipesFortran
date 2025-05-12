@@ -2,7 +2,9 @@ testdrive_dep = dependency('test-drive', fallback: ['test-drive', 'testdrive_dep
 
 tests = [
   'julday',
+  'date_utils'
   ]
+# if the .mod cannot be found, forgot to add the test into the test list above :)
 
 test_srcs = files(
   'tester.f90',
@@ -15,8 +17,8 @@ endforeach
 tester = executable(
   'tester',
   sources: test_srcs,
-  dependencies: [testdrive_dep, ch1_dep]
-  )
+  dependencies: [testdrive_dep, ch1_dep, date_utils_dep]
+)
 
 
 test('all tests', tester)
