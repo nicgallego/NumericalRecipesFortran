@@ -10,7 +10,7 @@ ch1_dep = declare_dependency(
   include_directories: include_directories('.')
 )
 
-executable('badluk', 
+badluk = executable('badluk', 
   sources: 'badluk.f90',
   dependencies: [ch1_dep, date_utils_dep]
 )
