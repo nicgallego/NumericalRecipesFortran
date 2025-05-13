@@ -22,7 +22,7 @@ jobs:
         run: |
           if [[ "$RUNNER_OS" == "Linux" ]]; then
             sudo apt-get update
-            sudo apt-get install -y gfortran ninja-build python3-pip
+            sudo apt-get install -y gfortran ninja-build python3-pip doxygen
           elif [[ "$RUNNER_OS" == "macOS" ]]; then
             echo "attemping to install gfortran for macos"
             brew update
