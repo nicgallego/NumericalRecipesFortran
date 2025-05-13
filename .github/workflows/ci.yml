@@ -13,7 +13,6 @@ jobs:
       matrix:
         os: [ ubuntu-latest, macos-latest ] # 
 
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -33,13 +32,12 @@ jobs:
           fi
           pip install meson
 
-      - name: Debug env
+      - name: Print environment diagnostics
         run: |
-          if [[ "$RUNNER_OS" == "macOS" ]]; then
-            echo "Available packages:"
-            brew search gfortran
-            ls /usr/local/bin | grep gfortran || echo "gfortran not found"
-          fi
+          echo "PATH=$PATH"
+          which ld
+          which gfortran
+          echo "FC=$FC"
 
       - name: Configure project with Meson
         run: meson setup --buildtype=release builddir 
