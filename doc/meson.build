@@ -20,5 +20,6 @@ doxygen_target = custom_target(
   input: doxygen_conf,
   output: 'html',
   command: [doxygen, '@INPUT@'],
+  depends: [ch1, date_utils, badluk, tester, ps_benchmark_exe],
   build_by_default: false
 )

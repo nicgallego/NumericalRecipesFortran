@@ -3,7 +3,7 @@ module ch1
    implicit none
    public
    ! this nasty includes require saving this file each time one of the included files gets updated.
-   !> @todo FIXME, use a safer alternative
+   !> @todo use a safer alternative
 
    !> @brief inverse funtion of julian day
    !>

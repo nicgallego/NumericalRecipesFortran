@@ -28,3 +28,14 @@ test('all tests', tester)
 foreach t: tests
   test(t, tester, args: t)
 endforeach
+
+# benchmarks here
+
+# declare an executable and register it as benchmark
+ps_benchmark_exe = executable(
+  'ps_benchmark',
+  ['ps_benchmark.f90', 'ps_algorithms.f90'],
+  dependencies: [],
+  install: false
+)
+benchmark('ps_benchmark', ps_benchmark_exe) 

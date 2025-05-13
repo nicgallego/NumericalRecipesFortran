@@ -1,4 +1,3 @@
-!> @file FIXME this is not appearing in the generated documentation
 !> @brief a funny program that computes all the occurences of friday 13th that coincide with full moon
 !>
 program badluk
