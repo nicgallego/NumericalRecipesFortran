@@ -13,7 +13,7 @@ A long way to go, nice goals to near and enjoy on my 'tiempo desocupado'
 
 ## How to use this code
 
-You need meson>=0.5, and a fortran compiler, currently tested on gfortran 13.3.0 on ubuntu 24.04. There is an internal dependency on test-drive, that should be fetched from the internet automatically while configuring the project.
+You need meson>=0.5, and a fortran compiler, currently tested on gfortran 13.3.0 on ubuntu 24.04. There is an internal dependency on test-drive, that should be fetched from the internet automatically while configuring the project. The documentation contains math expressions, I activated USE_MATHJAX in Doxygen settings, so that no need for sometims hard to setup latex is needed. 
 
 Configure the project with:
 ```
