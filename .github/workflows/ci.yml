@@ -23,16 +23,20 @@ jobs:
             sudo apt-get update
             sudo apt-get install -y gfortran ninja-build python3-pip
           elif [[ "$RUNNER_OS" == "macOS" ]]; then
+            echo "attemping to install gfortran for macos"
             brew install gcc gfortran ninja python
+          else
+            echo "runner not supported"
           fi
           pip install meson
 
       - name: Debug env
         run: |
-          echo "Listing compilers:"
-          ls /usr/local/bin | grep gfortran || echo "gfortran not found"
-          echo "Available packages:"
-          brew search fortran
+          if [[ "$RUNNER_OS" == "macOS" ]]; then
+            echo "Available packages:"
+            brew search gfortran
+            ls /usr/local/bin | grep gfortran || echo "gfortran not found"
+          fi
 
       - name: Configure project with Meson
         run: meson setup --buildtype=release builddir 
