@@ -11,7 +11,8 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest, macos-latest]
+        os: [ ubuntu-latest] # macos-latest, 
+
 
     steps:
       - name: Checkout repository
@@ -24,7 +25,9 @@ jobs:
             sudo apt-get install -y gfortran ninja-build python3-pip
           elif [[ "$RUNNER_OS" == "macOS" ]]; then
             echo "attemping to install gfortran for macos"
-            brew install gcc gfortran ninja python
+            brew update
+            brew install gfortran
+            brew install gcc ninja python
           else
             echo "runner not supported"
           fi
