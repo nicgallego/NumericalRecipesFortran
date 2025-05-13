@@ -23,9 +23,6 @@ jobs:
             sudo apt-get update
             sudo apt-get install -y gfortran ninja-build python3-pip doxygen
           elif [[ "$RUNNER_OS" == "macOS" ]]; then
-            echo "attemping to install gfortran for macos"
-            brew update
-            brew install gfortran
             brew install gcc ninja python doxygen
           else
             echo "runner not supported"
@@ -36,7 +33,7 @@ jobs:
         run: |
           echo "PATH=$PATH"
           which ld
-          which gfortran
+          brew list gcc
           echo "FC=$FC"
 
       - name: Configure project with Meson
