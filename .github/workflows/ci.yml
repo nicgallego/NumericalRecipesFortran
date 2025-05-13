@@ -33,8 +33,7 @@ jobs:
         run: |
           echo "PATH=$PATH"
           which ld
-          brew list gcc
-          echo "FC=$FC"
+          which gfortran
 
       - name: Configure project with Meson
         run: meson setup --buildtype=release builddir 
