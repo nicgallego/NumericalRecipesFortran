@@ -3,13 +3,17 @@ program ps_benchmark
 
    ! dependencies
    use, intrinsic :: iso_fortran_env, only: real32, real64
-   use ps_algorithms, only : ps_powers, ps_multiplications, ps_recursion
+   use ps_algorithms, only : ps_powers, ps_multiplications, ps_recursion, validate_allocate
    implicit none
 
    ! internal variables
    real(kind=real64), allocatable :: p_ref(:), p_mult(:), p_rec(:)
-   integer, parameter :: n = 256
+   integer, parameter :: n = 64
+
    real(kind=real64) :: t_start, t_end    ! time variables
+   integer :: k
+
+   real(kind=real64), allocatable :: ep_mult(:), ep_rec(:)
 
    ! executable body
    write (*,*) 'Computing reference values phi(k) for k=1...', n
@@ -30,4 +34,26 @@ program ps_benchmark
    call cpu_time(t_end)
    print '(a,f16.8,a)', "... took ", (t_end - t_start)*1000.0_real64, " ms"
 
+   write (*,*) 'Raw data:'
+   write (*,*) '          k            p_ref(k)                   p_mult(k)                     p_rec(k)'
+   write (*,*) '------------------------------------------------------------------------------------------'
+   do k=1,n
+      write (*,*) k, p_ref(k), p_mult(k), p_rec(k)
+   end do
+   write (*,*) '------------------------------------------------------------------------------------------'
+
+   write (*,*) 'Error statistics of algorithms with respect to reference values:'
+   write (*,*) '                      |p_mult - p_ref|           |p_rec - p_ref|'
+   write (*,*) '--------------------------------------------------------------------------------'
+
+   call validate_allocate(n,ep_mult)
+   ep_mult = abs(p_mult - p_ref)
+
+   call validate_allocate(n, ep_rec)
+   ep_rec = abs(p_rec - p_ref)
+
+   write (*,*) 'min     ', minval(ep_mult), minval(ep_rec)
+   write (*,*) 'avg     ', sum(ep_mult)/n, sum(ep_rec)/n
+   write (*,*) 'max     ', maxval(ep_mult), maxval(ep_rec)
+   write (*,*) '--------------------------------------------------------------------------------'
 end program

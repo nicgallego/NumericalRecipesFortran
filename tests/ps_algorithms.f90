@@ -10,7 +10,7 @@ module ps_algorithms
    implicit none
    private
 
-   public :: ps_powers, ps_multiplications, ps_recursion
+   public :: ps_powers, ps_multiplications, ps_recursion, validate_allocate
 
    real(kind=real64), parameter :: phi = 0.5_real64 * (sqrt(5.0_real64) - 1.0_real64)
 
