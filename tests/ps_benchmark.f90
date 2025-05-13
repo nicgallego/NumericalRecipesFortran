@@ -15,6 +15,10 @@ program ps_benchmark
 
    real(kind=real64), allocatable :: ep_mult(:), ep_rec(:)
 
+   ! experimenting with kind
+   integer,parameter :: kc = kind(' ')
+   integer,parameter :: kl = kind(.true.)
+
    ! executable body
    write (*,*) 'Computing reference values phi(k) for k=1...', n
    call cpu_time(t_start)
@@ -56,4 +60,16 @@ program ps_benchmark
    write (*,*) 'avg     ', sum(ep_mult)/n, sum(ep_rec)/n
    write (*,*) 'max     ', maxval(ep_mult), maxval(ep_rec)
    write (*,*) '--------------------------------------------------------------------------------'
+
+   ! playing with kinds... before doing some refactoring for generic functions
+   ! print *, "The default character kind is ", kc
+   ! print *, "The default logical kind is ", kl
+   ! print *, "The real32 kind is ", kind(real32)
+   ! print *, "The real64 kind is ", kind(real64)
+
+   ! print *, kind(1.0)       ! maybe 4
+   ! print *, kind(1.0d0)     ! maybe 8
+   ! print *, kind(.true.)    ! maybe 3 (as you saw)
+
+
 end program
