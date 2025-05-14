@@ -13,7 +13,7 @@ doxygen_conf = configure_file(
     }
   )
 
-doxygen = find_program('doxygen', required: true)
+doxygen = find_program('doxygen', required: true) # optional?
 
 doxygen_target = custom_target(
   'doc',

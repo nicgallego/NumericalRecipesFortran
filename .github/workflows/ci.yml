@@ -1,0 +1,57 @@
+name: NumericalRecipesFortran CI
+
+on:
+  push:
+    branches: [ main, 12-continuous-integration-setup ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ ubuntu-latest, macos-latest ] # 
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: |
+          if [[ "$RUNNER_OS" == "Linux" ]]; then
+            sudo apt-get update
+            sudo apt-get install -y gfortran ninja-build python3-pip doxygen
+          elif [[ "$RUNNER_OS" == "macOS" ]]; then
+            brew install gcc ninja python doxygen
+          else
+            echo "runner not supported"
+          fi
+          pip install meson
+
+      - name: Print environment diagnostics
+        run: |
+          echo "PATH=$PATH"
+          which ld
+
+      - name: Set gfortran version explicitly (macos)
+        run: |
+          if [[ "$RUNNER_OS" == "macOS" ]]; then
+            export FC=$(brew --prefix)/bin/gfortran-14
+            echo "FC=$FC"
+            echo "[binaries]" > gfortran.ini
+            echo "fortran = '${FC}'">> gfortran.ini
+          fi
+          
+      - name: Configure project with Meson
+        run: |
+          if [[ "$RUNNER_OS" == "macOS" ]]; then
+            meson setup --native-file=gfortran.ini builddir
+          else
+            meson setup --buildtype=release builddir 
+          fi
+      - name: Compile
+        run: meson compile -C builddir
+
+      - name: Run tests
+        run: meson test -C builddir --print-errorlogs

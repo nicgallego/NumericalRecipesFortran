@@ -1,3 +1,6 @@
+# vim temporals
+*.swp
+
 # build artifacts
 *.o
 *.mod

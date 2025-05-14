@@ -1,3 +1,5 @@
+![CI Status](https://github.com/nicgallego/NumericalRecipesFortran/actions/workflows/ci.yml/badge.svg)
+
 # Numerical Recipes in Fortran
 
 Didactic implementation by Nicolas Gallego
