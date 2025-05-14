@@ -3,32 +3,44 @@ name: Deploy Doxygen Docs
 on:
   push:
     branches: [main, 13-deploy-doc]
-  workflow_dispatch:
+
+permissions:
+  contents: write
 
 jobs:
-  deploy-docs:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout source
         uses: actions/checkout@v3
 
-      - name: Install Doxygen
-        run: sudo apt-get install doxygen graphviz -y
+      - name: Setup Python (needed for meson)
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
 
-      - name: Install Meson and Ninja
+      - name: Install dependencies
         run: |
-          pip install meson ninja
-          sudo apt-get install gfortran -y
+          sudo apt-get update
+          sudo apt-get install -y ninja-build doxygen graphviz
 
       - name: Configure and build documentation
         run: |
           meson setup builddir
           meson compile doc -C builddir
 
-      - name: Deploy GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: builddir/doc/html
-          publish_branch: gh-pages
+      - name: Configure project
+        run: meson compile -C buiddir doc
+
+      - name: Deploy to GitHub Pages
+        run: |
+          cd builddir/docs/html
+          git init
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git remote add origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
+          git checkout -b gh-pages
+          git add .
+          git commit -m "Deploy docs to Github Pages"
+          git push --force origin gh-pages
