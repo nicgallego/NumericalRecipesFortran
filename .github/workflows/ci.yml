@@ -82,7 +82,7 @@ jobs:
             lcov --remove coverage.info '/usr/*' '*/tests/*' --output-file coverage.cleaned.info \ 
               --ignore-errors unused
             genhtml coverage.cleaned.info --output-directory coverage-report \
-            --prefix $(relpath ..)
+              --prefix $(relpath ..)
           fi
 
       - name: Upload coverage to Codecov
