@@ -25,14 +25,12 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y meson ninja-build doxygen graphviz
 
-      - name: Configure and build documentation
-        run: |
-          meson setup builddir
+      - name: Configure Project
+        run: meson setup --buildtype=release builddir
+
+      - name: Build documentation
           meson compile doc -C builddir
-
-      - name: Configure project
-        run: meson compile -C buiddir doc
-
+          
       - name: Deploy to GitHub Pages
         run: |
           cd builddir/docs/html
