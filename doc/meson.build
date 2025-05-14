@@ -10,8 +10,8 @@ input_dirs = [
 dp = src_root / 'doc'
 doc_markdown = [
   dp / 'index.md',
-  dp / 'preeliminaries.md',
-  dp / 'ch2_solution_of_linear_equations.md',
+  dp / 'ch_01_preeliminaries.md',
+  dp / 'ch_02_linear_equations.md',
   ]
   
 doxygen_conf = configure_file(
