@@ -1,4 +1,4 @@
-name: NumericalRecipesFortran CI
+name: CI
 
 on:
   push:
@@ -55,7 +55,7 @@ jobs:
           fi
         shell: bash
           
-      - name: Configure project with Meson
+      - name: Configure project with Meson (debug on Linux for test coverage)
         run: |
           if [[ "$RUNNER_OS" == "macOS" ]]; then
             meson setup --native-file=gfortran.ini builddir
@@ -77,9 +77,12 @@ jobs:
       - name: Generate test coverage report (Linux)
         run: |
           if [[ "$RUNNER_OS" == 'Linux' ]]; then
+            cd builddir
             lcov --capture --directory . --output-file coverage.info
-            lcov --remove coverage.info '/usr/*' '*/tests/*' --output-file --output-file coverage.cleaned.info
-            genhtml coverage.cleaned.info --output-directory coverage-report
+            lcov --remove coverage.info '/usr/*' '*/tests/*' --output-file coverage.cleaned.info \ 
+              --ignore-errors unused
+            genhtml coverage.cleaned.info --output-directory coverage-report \
+            --prefix $(relpath ..)
           fi
 
       - name: Upload coverage to Codecov
@@ -87,4 +90,4 @@ jobs:
         with:
           files: coverage.cleaned.info
           token: ${{ secrets.CODECOV_TOKEN }}
-            lcov --remove coverage.info '/usr
+          token: ${{ secrets.CODECOV_TOKEN }}
