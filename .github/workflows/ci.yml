@@ -39,11 +39,17 @@ jobs:
           if [[ "$RUNNER_OS" == "macOS" ]]; then
             export FC=$(brew --prefix)/bin/gfortran-14
             echo "FC=$FC"
+            echo "[binaries]" > gfortran.ini
+            echo "fortran = '${FC}'">> gfortran.ini
           fi
           
       - name: Configure project with Meson
-        run: FC=$FC meson setup --buildtype=release builddir 
-
+        run: |
+          if [[ "$RUNNER_OS" == "macOS" ]]; then
+            meson setup --native-file=gfortran.ini builddir
+          else
+            meson setup --buildtype=release builddir 
+          fi
       - name: Compile
         run: meson compile -C builddir
 
