@@ -1,18 +1,4 @@
-!
-!! @brief Calculates the phases of the moon
-!!
-!! To be precise the nth requested phase of the moon since january 1900 and retuns the data encoded
-!! as a Julian number and a fraction to be added to it.
-!!
-!! Greenwich mean time is assumed.
-!!
-!! https://literature.hpcalc.org/community/astronomical-formulae.pdf
-!!
-!> @param[in] n integer representing the nth occurence of nph phase since January 1900.
-!> @param[in] nph code for desired phase: 0 new moon, 1 first quarter, 2 full moon, 3 last quarter
-!> @param[out] jd Julian Day Number
-!> @param[out] frac fractional part of the day to be added to jd
-!
+!> @brief implementation, see interface in module ch1
 subroutine flmoon(n,nph,jd,frac)
    implicit none
    integer, intent(in) :: n,nph
