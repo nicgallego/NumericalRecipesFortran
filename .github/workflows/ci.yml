@@ -24,7 +24,7 @@ jobs:
           choco install msys2 --yes
           choco install gcc --yes
           pip install meson ninja
-        echo "C:\Program Files (x86)\mingw-w64\bin" >> $GITHUB_PATH
+          echo "C:\Program Files (x86)\mingw-w64\bin" >> $GITHUB_PATH
 
       - name: Install dependencies (Linux/macOS)
         if: runner.os != 'Windows'
