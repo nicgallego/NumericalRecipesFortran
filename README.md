@@ -47,3 +47,5 @@ then open it with
 ```
 open <build-folder>/doc/html/index.html
 ```
+
+An online version of the project documentation is hosted [here](https://nicgallego.github.io/NumericalRecipesFortran/).
