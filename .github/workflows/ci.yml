@@ -2,22 +2,32 @@ name: NumericalRecipesFortran CI
 
 on:
   push:
-    branches: [ main, 12-continuous-integration-setup ]
+    branches: [ main ]
   pull_request:
     branches: [ main ]
 
 jobs:
   build-and-test:
     runs-on: ${{ matrix.os }}
+
     strategy:
       matrix:
-        os: [ ubuntu-latest, macos-latest ] # 
+        os: [ ubuntu-latest, macos-latest, windows-latest ] 
 
     steps:
-      - name: Checkout repository
+      - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Install dependencies
+      - name: Setup Fortran compiler
+        if: runner.os == 'Windows'
+        run: |
+          choco install msys2 --yes
+          choco install gcc --yes
+          pip install meson ninja
+        echo "C:\Program Files (x86)\mingw-w64\bin" >> GITHUB_PATH
+
+      - name: Install dependencies (Linux/macOS)
+        if: runner.os != 'Windows'
         run: |
           if [[ "$RUNNER_OS" == "Linux" ]]; then
             sudo apt-get update
@@ -42,6 +52,7 @@ jobs:
             echo "[binaries]" > gfortran.ini
             echo "fortran = '${FC}'">> gfortran.ini
           fi
+        shell: bash
           
       - name: Configure project with Meson
         run: |
@@ -50,8 +61,12 @@ jobs:
           else
             meson setup --buildtype=release builddir 
           fi
+        shell: bash
+
       - name: Compile
         run: meson compile -C builddir
+        shell: bash
 
       - name: Run tests
         run: meson test -C builddir --print-errorlogs
+        shell: bash
