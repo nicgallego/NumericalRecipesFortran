@@ -1,4 +1,4 @@
-project('NumericalRecipesFortran', 'fortran', meson_version: '>=0.50', version: '1.0')
+project('NumericalRecipesFortran', 'fortran', meson_version: '>=1.0', version: '1.0')
 
 # for test coverage builds
 if get_option('buildtype') == 'debug'
