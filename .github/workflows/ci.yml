@@ -32,7 +32,7 @@ jobs:
           if [[ "$RUNNER_OS" == "Linux" ]]; then
             sudo apt-get update
             sudo apt-get install -y gfortran ninja-build python3-pip doxygen
-            sudo apt-get install -y lconv
+            sudo apt-get install -y lcov
           elif [[ "$RUNNER_OS" == "macOS" ]]; then
             brew install gcc ninja python doxygen
           else
