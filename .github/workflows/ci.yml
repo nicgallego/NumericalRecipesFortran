@@ -80,7 +80,7 @@ jobs:
             cd builddir
             lcov --capture --directory . --output-file coverage.info
             lcov --remove coverage.info '/usr/*' '*/tests/*' --output-file coverage.cleaned.info --ignore-errors unused
-            genhtml coverage.cleaned.info --output-directory coverage-report --prefix $(relpath ..)
+            genhtml coverage.cleaned.info --output-directory coverage-report --prefix $(realpath ..)
           fi
 
       - name: Upload coverage to Codecov
