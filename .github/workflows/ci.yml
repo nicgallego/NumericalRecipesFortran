@@ -32,6 +32,7 @@ jobs:
           if [[ "$RUNNER_OS" == "Linux" ]]; then
             sudo apt-get update
             sudo apt-get install -y gfortran ninja-build python3-pip doxygen
+            sudo apt-get install -y lconv
           elif [[ "$RUNNER_OS" == "macOS" ]]; then
             brew install gcc ninja python doxygen
           else
@@ -58,6 +59,8 @@ jobs:
         run: |
           if [[ "$RUNNER_OS" == "macOS" ]]; then
             meson setup --native-file=gfortran.ini builddir
+          elif [[ "$RUNNER_OS" == 'Linux' ]]; then
+            meson setup --buildtype=debug builddir
           else
             meson setup --buildtype=release builddir 
           fi
@@ -70,3 +73,18 @@ jobs:
       - name: Run tests
         run: meson test -C builddir --print-errorlogs
         shell: bash
+          
+      - name: Generate test coverage report (Linux)
+        run: |
+          if [[ "$RUNNER_OS" == 'Linux' ]]; then
+            lcov --capture --directory . --output-file coverage.info
+            lcov --remove coverage.info '/usr/*' '*/tests/*' --output-file --output-file coverage.cleaned.info
+            genhtml coverage.cleaned.info --output-directory coverage-report
+          fi
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          files: coverage.cleaned.info
+          token: ${{ secrets.CODECOV_TOKEN }}
+            lcov --remove coverage.info '/usr
