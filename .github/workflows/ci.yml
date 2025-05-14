@@ -79,10 +79,8 @@ jobs:
           if [[ "$RUNNER_OS" == 'Linux' ]]; then
             cd builddir
             lcov --capture --directory . --output-file coverage.info
-            lcov --remove coverage.info '/usr/*' '*/tests/*' --output-file coverage.cleaned.info \ 
-              --ignore-errors unused
-            genhtml coverage.cleaned.info --output-directory coverage-report \
-              --prefix $(relpath ..)
+            lcov --remove coverage.info '/usr/*' '*/tests/*' --output-file coverage.cleaned.info --ignore-errors unused
+            genhtml coverage.cleaned.info --output-directory coverage-report --prefix $(relpath ..)
           fi
 
       - name: Upload coverage to Codecov
