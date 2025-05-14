@@ -1,4 +1,4 @@
-![CI Status](https://github.com/nigallego/NumericalRecipesFortran/actions/workflows/ci.yml/badge.svg)
+![CI Status](https://github.com/nicgallego/NumericalRecipesFortran/actions/workflows/ci.yml/badge.svg)
 
 # Numerical Recipes in Fortran
 
