@@ -33,8 +33,14 @@ jobs:
         run: |
           echo "PATH=$PATH"
           which ld
-          which gfortran
 
+      - name: Set gfortran version explicitly (macos)
+        run: |
+          if [[ "$RUNNER_OS" == "macOS" ]]; then
+            export FC=$(brew --prefix)/bin/gfortran-14
+            echo "FC=$FC"
+          fi
+          
       - name: Configure project with Meson
         run: meson setup --buildtype=release builddir 
 
