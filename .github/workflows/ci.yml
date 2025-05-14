@@ -42,7 +42,7 @@ jobs:
           fi
           
       - name: Configure project with Meson
-        run: meson setup --buildtype=release builddir 
+        run: $FC meson setup --buildtype=release builddir 
 
       - name: Compile
         run: meson compile -C builddir
