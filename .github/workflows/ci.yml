@@ -1,4 +1,4 @@
-name: NumericalRecipesFortran CI
+name: CI
 
 on:
   push:
@@ -32,6 +32,7 @@ jobs:
           if [[ "$RUNNER_OS" == "Linux" ]]; then
             sudo apt-get update
             sudo apt-get install -y gfortran ninja-build python3-pip doxygen
+            sudo apt-get install -y lconv
           elif [[ "$RUNNER_OS" == "macOS" ]]; then
             brew install gcc ninja python doxygen
           else
@@ -54,10 +55,12 @@ jobs:
           fi
         shell: bash
           
-      - name: Configure project with Meson
+      - name: Configure project with Meson (debug on Linux for test coverage)
         run: |
           if [[ "$RUNNER_OS" == "macOS" ]]; then
             meson setup --native-file=gfortran.ini builddir
+          elif [[ "$RUNNER_OS" == 'Linux' ]]; then
+            meson setup --buildtype=debug builddir
           else
             meson setup --buildtype=release builddir 
           fi
@@ -70,3 +73,21 @@ jobs:
       - name: Run tests
         run: meson test -C builddir --print-errorlogs
         shell: bash
+          
+      - name: Generate test coverage report (Linux)
+        run: |
+          if [[ "$RUNNER_OS" == 'Linux' ]]; then
+            cd builddir
+            lcov --capture --directory . --output-file coverage.info
+            lcov --remove coverage.info '/usr/*' '*/tests/*' --output-file coverage.cleaned.info \ 
+              --ignore-errors unused
+            genhtml coverage.cleaned.info --output-directory coverage-report \
+            --prefix $(relpath ..)
+          fi
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          files: coverage.cleaned.info
+          token: ${{ secrets.CODECOV_TOKEN }}
+          token: ${{ secrets.CODECOV_TOKEN }}
