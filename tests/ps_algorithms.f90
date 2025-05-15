@@ -6,13 +6,13 @@
 !> \f]
 !>
 module ps_algorithms
-   use, intrinsic :: iso_fortran_env, only: real32, real64
+   use, intrinsic :: iso_fortran_env, only: real32
    implicit none
    private
 
    public :: ps_powers, ps_multiplications, ps_recursion, validate_allocate
 
-   real(kind=real64), parameter :: phi = 0.5_real64 * (sqrt(5.0_real64) - 1.0_real64)
+   real(kind=real32), parameter :: phi = 0.5_real32 * (sqrt(5.0_real32) - 1.0_real32)
 
 contains
 
@@ -21,12 +21,10 @@ contains
    !> @return p, n dimensional vector with the first \f$n\f$ powers \f$\phi^n\f$
    function ps_powers(n) result(p)
       integer, intent(in) :: n
-      real(kind=real64), allocatable :: p(:)
+      real(kind=real32), allocatable :: p(:)
 
       ! internal variables
-      integer :: ierr ! error code
       integer :: k   ! for index range 1 ... n
-      character(:), allocatable :: msg
 
       ! executable body
       call validate_allocate(n, p)
@@ -40,7 +38,7 @@ contains
    !> @return p, n dimensional vector with the first \f$n\f$ powers \f$\phi^n\f$
    function ps_multiplications(n) result(p)
       integer, intent(in) :: n
-      real(kind=real64), allocatable :: p(:)
+      real(kind=real32), allocatable :: p(:)
 
       ! internal variables
       integer :: k   ! for index range 1 ... n
@@ -60,7 +58,7 @@ contains
    !> @return p, n dimensional vector with the first \f$n\f$ powers \f$\phi^n\f$
    function ps_recursion(n) result(p)
       integer, intent(in) :: n
-      real(kind=real64), allocatable :: p(:)
+      real(kind=real32), allocatable :: p(:)
 
       ! internal variables
       integer :: k   ! for index range 1 ... n
@@ -92,7 +90,7 @@ contains
    !> @param[inout] vec vector to be allocated
    subroutine validate_allocate(n, vec)
       integer, intent(in) :: n
-      real(kind=real64), intent(inout), allocatable :: vec(:)
+      real(kind=real32), intent(inout), allocatable :: vec(:)
 
       integer :: ierr ! error code
       character(:), allocatable :: msg
