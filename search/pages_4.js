@@ -1,0 +1,4 @@
+var searchData=
+[
+  ['equations_0',['2. Solution of Linear Algebraic Equations',['../ch_02_linear_equations.html',1,'']]]
+];

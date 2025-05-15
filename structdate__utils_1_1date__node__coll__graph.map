@@ -1,0 +1,6 @@
+<map id="date_utils::date_node" name="date_utils::date_node">
+<area shape="rect" id="Node000001" title="a date node for a single linked list" alt="" coords="5,93,168,119"/>
+<area shape="poly" id="edge2_Node000001_Node000001" title=" " alt="" coords="183,98,195,106,186,113,169,116,168,111,184,108,189,106,181,103"/>
+<area shape="rect" id="Node000002" href="$structdate__utils_1_1date.html" title="date structure mm/dd/yyyy hour 24h based" alt="" coords="25,5,148,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="89,45,89,93,84,93,84,45"/>
+</map>

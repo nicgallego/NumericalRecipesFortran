@@ -1,0 +1,9 @@
+<map id="ch1::badluck" name="ch1::badluck">
+<area shape="rect" id="Node000001" title="bootstrap function from the original program to make it testable" alt="" coords="317,35,421,60"/>
+<area shape="rect" id="Node000002" href="$badluk_8f90.html#a7c327c146682aff913576359ffd45e72" title="a funny program that computes all the occurences of friday 13th that coincide with full moon" alt="" coords="158,5,225,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="304,39,225,26,225,21,304,34"/>
+<area shape="rect" id="Node000003" href="$namespacetest__badluck.html#afad1c5c83dfce886e0848712be768b1e" title="collect tests into testsuite" alt="" coords="113,55,269,95"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="304,60,270,66,269,60,303,55"/>
+<area shape="rect" id="Node000004" href="$tester_8f90.html#abb1af5b22eb90cec23fca42accb63245" title="Adapted from test driver suggested by test&#45;drive getting started documentatation." alt="" coords="5,63,65,88"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="100,78,66,78,66,73,100,73"/>
+</map>
