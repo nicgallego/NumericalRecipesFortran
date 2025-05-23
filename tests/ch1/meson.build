@@ -1,4 +1,3 @@
-testdrive_dep = dependency('test-drive', fallback: ['test-drive', 'testdrive_dep']) 
 
 tests = [
   'julday',
