@@ -18,9 +18,10 @@ contains
       type(unittest_type), allocatable, intent(out) :: testsuite(:)
 
       testsuite = [ &
-         new_unittest("trivial_decomp", trivial), &
-         new_unittest("easy_problem", easy) &
-      ]
+         new_unittest("singular", singular), &
+         new_unittest("easy_problem", easy), &
+         new_unittest("trivial_decomp", trivial) &
+         ]
    end subroutine
 
    !> @brief given and already solved system, verify it does not change
@@ -31,6 +32,7 @@ contains
 
       real :: A(2,2), b(2,1), Ainv(2,2), r(2,1)
       integer :: i, j ! indices
+      logical :: ok ! signaling flag
 
       A = reshape( [1.0, 0.0, 0.0, 1.0], shape(A) )
       b = reshape([2.0, 0.5], shape(b))
@@ -39,7 +41,8 @@ contains
       Ainv = A
       r = b
 
-      call gaussj(A,2,2,b,1,1)
+      call gaussj(A,2,2,b,1,1,ok)
+      call check(error, ok, more="gaussj failed")
 
       do i = 1, 2
          call check(error, abs(b(i,1) - r(i,1)) < tol, more="b != r")
@@ -50,20 +53,37 @@ contains
 
    end subroutine trivial
 
+   !> @brief the simplest singular matrix [0]
+   subroutine singular(error)
+      type(error_type), allocatable, intent(out) :: error
+
+      real :: A(1,1), b(1,1)
+      logical :: ok ! signaling flag
+
+      A = reshape( [0.0], shape(A) )
+      b = reshape( [1.0], shape(b) )
+
+      call gaussj(A,1,1,b,1,1,ok)
+      call check(error, .not. ok, more='expected to fail')
+
+   end subroutine singular
+
    subroutine easy(error)
       type(error_type), allocatable, intent(out) :: error
 
       real, dimension(2,2) :: A, sln, B
 
       integer :: i, j ! indices
-      
+      logical :: ok ! signaling flag
+
       ! column wise data assingment
       A = reshape([1,0,1,1], shape(A))
       B = reshape([4,1,0,1], shape(B))
 
       sln = reshape([3,1,-1,1], shape(sln))
 
-      call gaussj(A,2,2,B,2,2)
+      call gaussj(A,2,2,B,2,2,ok)
+      call check(error, ok, more='gaussj failed')
 
       do i= 1, 2
          do j = 1, 2
@@ -71,5 +91,5 @@ contains
          end do
       end do
    end subroutine easy
-   
+
 end module test_gaussj
