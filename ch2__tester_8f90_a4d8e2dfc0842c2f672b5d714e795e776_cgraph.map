@@ -1,0 +1,5 @@
+<map id="ch2_tester" name="ch2_tester">
+<area shape="rect" id="Node000001" title="entrypoint for tests in chapter 2" alt="" coords="5,13,96,38"/>
+<area shape="rect" id="Node000002" href="$namespacetest__gaussj.html#a8868850a124c2d7ebb13f44f39179cd8" title="collect exported unit tests from this module" alt="" coords="144,5,291,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="96,23,130,23,130,28,96,28"/>
+</map>

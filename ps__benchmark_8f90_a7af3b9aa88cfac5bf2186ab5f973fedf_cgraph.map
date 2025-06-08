@@ -1,0 +1,14 @@
+<map id="ps_benchmark" name="ps_benchmark">
+<area shape="rect" id="Node000001" title="powers of the &quot;Golden&#45;Mean&quot;" alt="" coords="5,81,123,107"/>
+<area shape="rect" id="Node000002" href="$namespaceps__algorithms.html#a1ea4296bcc2abea6a81cafdf3a645cd3" title="powers via explicit multiplications" alt="" coords="171,5,412,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="92,79,170,47,223,32,224,37,172,53,94,84"/>
+<area shape="rect" id="Node000003" href="$namespaceps__algorithms.html#adc43d1fdf2f99d3a41297aaf38fe7ba5" title="validate n &gt; 0. Upper limit is platform dependent" alt="" coords="460,74,635,114"/>
+<area shape="poly" id="edge7_Node000001_Node000003" title=" " alt="" coords="123,91,446,91,446,97,123,97"/>
+<area shape="rect" id="Node000004" href="$namespaceps__algorithms.html#ac395a61f2466439bdbbc81b97b1df726" title="powers, direct method" alt="" coords="196,107,387,132"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="123,98,183,105,182,110,123,103"/>
+<area shape="rect" id="Node000005" href="$namespaceps__algorithms.html#ad83ad18df4437ef3d833420b24b16c1a" title="using recursion" alt="" coords="189,156,393,181"/>
+<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="90,104,128,123,172,141,204,150,203,155,170,146,125,128,87,109"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="343,28,413,47,475,67,473,72,411,53,342,33"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="387,107,446,101,447,107,387,113"/>
+<area shape="poly" id="edge6_Node000005_Node000003" title=" " alt="" coords="361,153,411,141,483,117,484,122,413,146,362,158"/>
+</map>
