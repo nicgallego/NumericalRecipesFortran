@@ -49,5 +49,12 @@ then open it with
 ```
 open <build-folder>/doc/html/index.html
 ```
-
 An online version of the project documentation is hosted [here](https://nicgallego.github.io/NumericalRecipesFortran/).
+
+Test coverage target also available in linux for debug builds. You need 'gcov' and 'gcovr' installed, use it with the following commands:
+```
+meson setup --buildtype debug <debug-build-folder>
+meson compile <debug-build-folder> coverage.html
+```
+This target runs the tests and generates the coverage report file that you can open with your web browser (<debug-build-forlder>/coverage.html).
+

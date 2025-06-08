@@ -20,7 +20,9 @@ contains
       testsuite = [ &
          new_unittest("singular", singular), &
          new_unittest("easy_problem", easy), &
-         new_unittest("trivial_decomp", trivial) &
+         new_unittest("trivial_decomp", trivial), &
+         new_unittest("wrong size", wrong_size), &
+         new_unittest("row permutation case", row_perm) &
          ]
    end subroutine
 
@@ -91,5 +93,40 @@ contains
          end do
       end do
    end subroutine easy
+
+   subroutine wrong_size(error)
+      type(error_type), allocatable, intent(out) :: error
+
+      real, dimension(2,2) :: A
+      real, dimension(3,1) :: b
+      logical :: ok
+
+      A = reshape([0, 1, 1, 0], shape(A))
+      b = reshape([1, 2, 3], shape(b))
+
+      call gaussj(A,2,2,b,3,3,ok)
+      call check(error, .not. ok, more='expected fail because of mismatching sizes')
+
+   end subroutine wrong_size
+
+   subroutine row_perm(error)
+      type(error_type), allocatable, intent(out) :: error
+
+      real, dimension(2,2) :: A
+      real, dimension(2,1) :: b, x
+      logical :: ok
+
+      A = reshape([0, 1, 1, 0], shape(A)) ! permunation matrix
+      b = reshape([1, 2], shape(b))
+      x = reshape([2, 1], shape(x))
+
+      call gaussj(A,2,2,b,1,1,ok)
+      call check(error, ok, more="should have worked")
+
+      ok = abs(b(1,1) - x(1,1)) < tiny(0.) .and. &
+         abs(b(2,1) - x(2,1)) < tiny(0.)
+      call check(error, ok, more="wrong solution")
+
+   end subroutine row_perm
 
 end module test_gaussj
