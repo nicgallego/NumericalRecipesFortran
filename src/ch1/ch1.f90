@@ -2,16 +2,15 @@ module ch1
    use date_utils, only: dates_list, date_node, date
    implicit none
    public
-   ! this nasty includes require saving this file each time one of the included files gets updated.
-
-   !> @brief inverse funtion of julian day
-   !>
-   !> @param[in] julian a julian day number, see by julday routine for details
-   !> @param[out] mm month 01 january to 12 december
-   !> @param[out] id integer day, 1 to 31 at most
-   !> @param[out] iyyy integer year, usually a 4 digit number
 
    interface
+      !> @brief inverse funtion of julian day
+      !>
+      !> @param[in] julian a julian day number, see by julday routine for details
+      !> @param[out] mm month 01 january to 12 december
+      !> @param[out] id integer day, 1 to 31 at most
+      !> @param[out] iyyy integer year, usually a 4 digit number
+      !>
       subroutine caldat(julian, mm, id, iyyy)
          integer, intent(in) :: julian
          integer, intent(out) :: mm, id, iyyy
